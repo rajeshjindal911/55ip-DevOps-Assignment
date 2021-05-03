@@ -1,4 +1,5 @@
 # 55ip-DevOps-Assignment
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 TasK-1: Description: A company is running application on AWS server. application server had crashed and the command to restart application server is not even working. The developer, being aware of some commands, tries to tweak around and discovers after running `df -h` that the server's disk is 100% full and most of the space is taken by /usr/src directory.
 
 Solution:
@@ -6,6 +7,25 @@ Solution:
 cd /usr/src 
 du -sh * -- wiil list out the file and directories with size. so will select the file and directory according with most size. we will delete/move that particular file or directory.
 rm -rf dirname/filename
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Task-2: Description: There are 3 servers running App version 1(v1) in AWS under autoscaling.
+Scaling policy is configured in such way that if average cpu percentage cross 60%, additional 2 new servers will get launched.
+Now you have total 5 servers running v1. Team decide to deploy the new version of App version 2 ( v2) using ansible. you need to make sure your ansible inventory is upto date (with newly added servers)
+Write a script that will create the ansible inventory with newly provisioned servers. Feel free mention any additional tool or different approach to achieve the same.
+
+Solution:
+Install pip,boto3 on ansible node.
+download ec2.py and ec2.ini file for dynamic invenroty and move the files to /etc/ansible/
+First we will create the ssh password-less connectivity between Ansible node and worker node.
+Now run /ec2.py
+you will be able to see the both the instance in ec2.py under ec2 group.
+Now craete the AMI image of worker-node insatnce.
+define the launch configuration with AMI image that we craeted in previous step and craete the ASG.
+Now again come to Ansible node and again run /ec2.py. you will be able to see the newly created Server in ec2.py file under ec2 group.
+You can check the connectivity of the servers with Ansible_node using follow command:
+        ansible -i ec2.py ec2 -m ping 
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
